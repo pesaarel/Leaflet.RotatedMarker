@@ -6,11 +6,11 @@
     var oldIE = (L.DomUtil.TRANSFORM === 'msTransform');
 
     L.Marker.addInitHook(function () {
-        var iconAnchor = this.options.icon.options.iconAnchor;
-        if (iconAnchor) {
-            iconAnchor = (iconAnchor[0] + 'px ' + iconAnchor[1] + 'px');
+        var shadowAnchor = this.options.icon.options.shadowAnchor;
+        if (shadowAnchor) {
+            shadowAnchor = (shadowAnchor[0] + 'px ' + shadowAnchor[1] + 'px');
         }
-        this.options.rotationOrigin = this.options.rotationOrigin || iconAnchor || 'center bottom' ;
+        this.options.rotationOrigin = this.options.rotationOrigin || shadowAnchor || 'center bottom' ;
         this.options.rotationAngle = this.options.rotationAngle || 0;
     });
 
@@ -23,14 +23,14 @@
             proto_setPos.call(this, pos);
 
             if(this.options.rotationAngle) {
-                this._icon.style[L.DomUtil.TRANSFORM+'Origin'] = this.options.rotationOrigin;
+                this._shadow.style[L.DomUtil.TRANSFORM+'Origin'] = this.options.rotationOrigin;
 
                 if(oldIE) {
                     // for IE 9, use the 2D rotation
-                    this._icon.style[L.DomUtil.TRANSFORM] = ' rotate(' + this.options.rotationAngle + 'deg)';
+                    this._shadow.style[L.DomUtil.TRANSFORM] = ' rotate(' + this.options.rotationAngle + 'deg)';
                 } else {
                     // for modern browsers, prefer the 3D accelerated version
-                    this._icon.style[L.DomUtil.TRANSFORM] += ' rotateZ(' + this.options.rotationAngle + 'deg)';
+                    this._shadow.style[L.DomUtil.TRANSFORM] += ' rotateZ(' + this.options.rotationAngle + 'deg)';
                 }
             }
         },
